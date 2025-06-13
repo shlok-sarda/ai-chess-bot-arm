@@ -45,3 +45,11 @@ Inventor, Tinkerer, and Robotics Enthusiast
 
 ## 📜 License
 MIT License – Free to use and modify, with credit.
+
+
+
+
+## NOTE 
+myself file should be in the CHESS AI folder
+chess Ai folder you can get it from a youtube video down below
+*********
