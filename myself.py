@@ -12,7 +12,7 @@ def prepare_input(board: Board):
     matrix = board_to_matrix(board)
     X_tensor = torch.tensor(matrix, dtype=torch.float32).unsqueeze(0)
     return X_tensor
-
+''' for caliberating pos of arm 1 and arm 2''' 
 
 with open("/Users/shloksarda/Desktop/chess-engine-main/models/move_to_int", "rb") as file:
     move_to_int = pickle.load(file)
@@ -92,7 +92,7 @@ with open("new_file.txt", "w") as file:
     # Write the text to the file
     file.write(f"{position_arm1},{position_arm2}")
 
-
+#function to send signals to arduino with  servo and Z axis motor
    
     
 def sending_steps_to_Z(steps):
@@ -104,7 +104,7 @@ def sending_steps_to_Z(steps):
     time.sleep(1)  # Allow time 
 
 
-
+#function to send signals to the arduino with 2 motors for each arm
 
 def sending_steps_to_arm1_and_2(steps1,steps2):
     steps2f=(steps1+steps2)
@@ -113,6 +113,8 @@ def sending_steps_to_arm1_and_2(steps1,steps2):
 
     print("Data sent successfully.",steps1,steps2f)
     time.sleep(1)
+
+#function to move to the specific cordinate
 
 def move_to_coordinate(x,y):
     with open('new_file.txt', 'r') as file:
@@ -150,7 +152,7 @@ def initial_pos():
     move_to_coordinate(0,490)
     
 
-
+#function to grab the chess piece
 def grab(x,y,depth):
     sending_steps_to_Z('o')
 
@@ -163,7 +165,7 @@ def grab(x,y,depth):
     time.sleep(t)
 
 
-
+#function to moke to go and grab the chess piece
 def grab_and_move(to_whereX,to_whereY,depth):
     if to_whereX==-68:
         depth=3800
@@ -185,7 +187,7 @@ def grab_and_move(to_whereX,to_whereY,depth):
 
 
 
-
+#error managment for some cordinates
 
 def transform_coordinates(coord):
     # Define a transformation function or a mapping of input to output
@@ -205,7 +207,7 @@ def transform_coordinates(coord):
     
 
 
-
+#some cordinates where robotic arm cannot move will transform that to manual adjusted steps
 
 
 def moving_out_of_bounds1(cordinates,depth):
@@ -234,7 +236,7 @@ def moving_out_of_bounds1(cordinates,depth):
 
 
     
-
+#functions for moving arms (error +simple)
 def moving_normal1(cordinates,depth):
     cordinates=transform_coordinates(cordinates)
     x=cordinates[0]
@@ -290,20 +292,8 @@ def get_depth(coord):
     
     return depth_map.get(coord, "Depth not found")  # Returns depth if found, otherwise a default message
 
-# Example usage
-coord = (-2, 1)  # Example input as a tuple
-print(get_depth(coord))
 
-# grab(x,y)
-
-
-
-
-# x_towhere=int(input('to where babuu x  '))
-# y_towhere=int(input('to where babuu y  '))
-
-# grab_and_move(x_towhere,y_towhere)
-
+#final function of the arm movement
 def moving_from_one_to_other(positions):
     out_of_bound=[(-2,1),(-1,2)]
     first_pos=positions[0]
@@ -334,20 +324,10 @@ def moving_from_one_to_other(positions):
 
 
 
-def grab(x,y,depth):
-    sending_steps_to_Z('o')
-
-    move_to_coordinate(x,y)
-    time.sleep(1) 
-    sending_steps_to_Z(-depth)
-    time.sleep(t) 
-    sending_steps_to_Z('s')
-    sending_steps_to_Z(depth)
-    time.sleep(t)
 
 
 
-
+# function for excuting the killing segment
 
 def killing(cordinate,depth=3500):
     print(cordinate)
@@ -380,14 +360,13 @@ def killing(cordinate,depth=3500):
 
 
 
-
+#checks that if there is any killing in the predicted move
 def check_kill(move1, move2):
     if move1[-2:] == move2[-2:]:  # Check if last two characters match
         killing('d4')
     else:
         print("No kill.")
 
-# Example usage
 
 
 
@@ -403,6 +382,7 @@ def check_kill(move1, move2):
 
 
 
+#final loop
 
 
 while True:
