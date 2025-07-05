@@ -13,7 +13,7 @@ This is a DIY robot that plays chess using a SCARA robotic arm and a custom AI b
 - Real-world robotic execution of moves
 
 ## 📁 Folder Structure
-- `arm_control/`: Arduino code for the robot arm
+- `Arduino Codes/`: Arduino code for the robot arm
 - `chess_ai/`: The neural net / AI code
 - `hardware/`: Circuit diagrams and hardware layout
 - `stlfiles/`: stl files for sacara arm
