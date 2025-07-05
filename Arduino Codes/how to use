@@ -1,0 +1,3 @@
+The folder named "main final" contains the Arduino code for both Arm 1 and Arm 2. The key difference in the files is that for these two arms, I need them to remain stiff (hold their position) at all times.
+
+To achieve this, I’ve used a custom library that keeps the stepper motor coils powered continuously, ensuring the arms stay firm 
